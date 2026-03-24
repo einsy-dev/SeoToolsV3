@@ -1,0 +1,14 @@
+{
+  "if err": {
+    "prefix": [
+      "if err"
+    ],
+    "body": [
+      "if err != nil {\r",
+      "\t\tfmt.Printf(\"About.Create.Err:%+v\", err)\r",
+      "\t}"
+    ],
+    "description": "",
+    "scope": "go"
+  }
+}

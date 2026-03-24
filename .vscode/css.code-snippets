@@ -1,0 +1,14 @@
+{
+  "ctable": {
+    "prefix": [
+      "ctable"
+    ],
+    "body": [
+      "table, td, th {",
+      "\tborder-collapse: collapse;",
+      "}"
+    ],
+    "description": "",
+    "scope": "css"
+  }
+}
