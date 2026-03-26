@@ -3,7 +3,7 @@
 * {
 	box-sizing: border-box;
 	scrollbar-width: none;
-	user-select: none;
+	/* user-select: none; */
 }
 
 textarea {

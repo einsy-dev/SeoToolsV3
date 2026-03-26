@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { store } from "$shared/store";
+  import { store } from "../../app/store";
 
   let { children } = $props();
   store.header.set([

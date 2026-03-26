@@ -12,9 +12,10 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
+			'$app': "src/app",
 			'$shared': "src/shared",
 			'$widgets': "src/widgets",
-			'$go': "src/lib/wailsjs/go",
+			'$go': "src/lib/github.com/einsy-dev/SEOTools/internal",
 			'$runtime': "src/lib/wailsjs/runtime/runtime.js",
 			"$lib": "src/lib"
 		}

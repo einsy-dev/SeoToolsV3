@@ -5,8 +5,6 @@
   let { children } = $props();
 </script>
 
-<svelte:head></svelte:head>
-
 <div class="relative h-screen flex flex-col bg-[rgba(43,43,43,1)]">
   <Header />
   <Sidebar />

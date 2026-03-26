@@ -3,6 +3,6 @@
   import { onMount } from "svelte";
 
   onMount(() => {
-    goto("/extension");
+    goto("/parse-csv");
   });
 </script>

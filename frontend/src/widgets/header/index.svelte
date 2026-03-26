@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import { goto } from "$app/navigation";
-  import { store } from "$shared/store";
+  import { store } from "../../app/store";
   import { Button } from "$shared/ui";
 
   let tabs = $state<{ title: string; path: string }[]>([]);

@@ -1,36 +1,33 @@
+import { CSV } from "$go/services";
 import { parseDomain } from "./parseDomain";
-
-export function parseCsv(text: string | undefined): string[][] | undefined {
-  if (!text) return;
-  let arr = text
-    .replaceAll("\r", "")
-    .split("\n")
-    .map((item: any) => item.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map((el: any) => el.replaceAll('"', "")));
-
-  return arr;
-}
 
 let keys = ["Item", "Target"];
 
 type CsvMap = { [key: string]: number | number[] };
 
 export class Csv {
-  data: string[][];
+  data: string[][] = [];
   rows: CsvMap = {};
   cols: CsvMap = {};
   key: number | undefined;
 
   constructor(data?: string) {
-    this.data = parseCsv(data) || [];
-    this.getCols();
+    if (!data) return;
 
-    Object.keys(this.cols).find((c, i) => {
-      if (keys.includes(c)) {
-        this.key = Array.isArray(this.cols[c]) ? this.cols[c][0] : this.cols[c];
-      }
-    });
+    (async () => {
+      this.data = [];
+      await CSV.Parse(data);
 
-    this.getRows(this.key);
+      this.getCols();
+
+      Object.keys(this.cols).find((c, i) => {
+        if (keys.includes(c)) {
+          this.key = Array.isArray(this.cols[c]) ? this.cols[c][0] : this.cols[c];
+        }
+      });
+
+      this.getRows(this.key);
+    })();
   }
 
   private getRows(keyCol: number | undefined) {
