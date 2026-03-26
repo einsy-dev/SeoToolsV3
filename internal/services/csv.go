@@ -28,34 +28,39 @@ func (c *CSV) Parse(text []string) [][]string {
 }
 
 type csvData struct {
-	arr    [][]string
-	cols   map[string]int
-	rows   map[string]int
-	keyCol int
+	arr  [][]string
+	cols map[string]int
+	rows map[string]int
 }
 
 func (d *csvData) init() {
 	d.arr = [][]string{}
 	d.cols = make(map[string]int)
 	d.rows = make(map[string]int)
-	d.keyCol = 0
 }
 
 var keys = []string{"Item", "Domain", "Target"}
 
 func (d *csvData) parse(arr [][]string) {
+	var kCol int = -1
+
 	d.arr = arr
+
 	for i, v := range arr[0] {
 		if slices.Contains(keys, v) {
-			d.keyCol = i
-			v = "Domain"
-			arr[0][i] = v
+			kCol = i
+			arr[0][kCol] = "Domain"
 		}
 		d.cols[v] = i
 	}
 
+	if kCol == -1 {
+		log.Fatal("No key column fount")
+		return
+	}
+
 	for i, v := range arr {
-		d.rows[v[d.keyCol]] = i
+		d.rows[v[kCol]] = i
 	}
 
 }
@@ -65,10 +70,10 @@ func (d *csvData) join(data *csvData) {
 		d.arr = data.arr
 		d.rows = data.rows
 		d.cols = data.cols
-		d.keyCol = data.keyCol
+		return
 	}
-	d.joinMeta(d.cols, data.cols)
-	d.joinMeta(d.rows, data.rows)
+	d.cols = d.joinMeta(d.cols, data.cols)
+	d.rows = d.joinMeta(d.rows, data.rows)
 
 	maxRows := len(d.rows)
 	maxCols := len(d.cols)
@@ -80,7 +85,7 @@ func (d *csvData) join(data *csvData) {
 
 	for r, i := range data.rows {
 		for c, j := range data.cols {
-			if data.arr[i][j] != "" && len(d.arr[d.rows[r]]) != 0 {
+			if data.arr[i][j] != "" {
 				d.arr[d.rows[r]][d.cols[c]] = data.arr[i][j]
 			}
 		}
@@ -89,15 +94,12 @@ func (d *csvData) join(data *csvData) {
 
 func (d *csvData) joinMeta(dst map[string]int, src map[string]int) map[string]int {
 
-	for k, v := range src {
+	for k := range src {
 		_, derr := dst[k]
-
 		if !derr {
 			dst[k] = len(dst)
 			continue
 		}
-
-		dst[k] = v
 	}
 
 	return dst
