@@ -1,45 +1,59 @@
 <script lang="ts">
-  import { Blocks, Database, Grid2x2Plus, Settings, Table, Wrench } from "@lucide/svelte";
-  import { goto } from "$app/navigation";
-  import Button from "./button/button.svelte";
-  let active = $state(false);
-  let width = $state<number>();
+	import { goto } from '$app/navigation';
+	import { clickOutside } from '$shared/actions/clickOutside';
+	import Button from './button/button.svelte';
+	import { Blocks, Grid2x2Plus, Settings } from '@lucide/svelte';
 
-  let sidebar: Node;
-  function handleClick(e: MouseEvent) {
-    if (!sidebar || !e.target) return;
-    if (!sidebar.contains(e.target as Node)) {
-      active = false;
-    }
-  }
+	let active = $state(false);
+
+	const router = {
+		top: [
+			{
+				path: '/extension',
+				icon: Blocks
+			},
+			{
+				path: '/parse-csv',
+				icon: Grid2x2Plus
+			}
+		],
+		bottom: [
+			{
+				path: '/settings',
+				icon: Settings
+			}
+		]
+	};
 </script>
 
-<svelte:window bind:innerWidth={width} onclick={handleClick} />
-
 <div
-  class="absolute top-0 z-50 h-full bg-black -translate-x-full transition-all"
-  style:transform={active ? `translateX(${100}%)` : ""}
-  bind:this={sidebar}
+	class="absolute top-0 z-50 h-full bg-black -translate-x-full transition-all"
+	style:transform={active ? `translateX(${100}%)` : ''}
+	use:clickOutside
+	onclick_outside={() => {
+		active = false;
+	}}
 >
-  <nav class="flex flex-col h-full justify-between">
-    <ul class="flex flex-col">
-      <Button onclick={() => goto("/extension")}>
-        <Blocks color={"white"} />
-      </Button>
-      <Button onclick={() => goto("/parse-csv")}>
-        <Grid2x2Plus color={"white"} />
-      </Button>
-    </ul>
-    <div class="flex flex-col">
-      <Button onclick={() => goto("/settings")}>
-        <Settings color={"white"} />
-      </Button>
-    </div>
-  </nav>
-  <button
-    class="bg-black text-white absolute top-20 right-0 translate-x-full w-3 h-20 rounded-[0_10px_10px_0] cursor-pointer"
-    onclick={() => (active = !active)}
-  >
-    |
-  </button>
+	<nav class="flex flex-col h-full justify-between">
+		<ul class="flex flex-col">
+			{#each router.top as route}
+				<Button onclick={() => goto(route.path)}>
+					<route.icon color={'white'} />
+				</Button>
+			{/each}
+		</ul>
+		<div class="flex flex-col">
+			{#each router.bottom as route}
+				<Button onclick={() => goto(route.path)}>
+					<route.icon color={'white'} />
+				</Button>
+			{/each}
+		</div>
+	</nav>
+	<button
+		class="bg-black text-white absolute top-20 right-0 translate-x-full w-3 h-20 rounded-[0_10px_10px_0] cursor-pointer"
+		onclick={() => (active = !active)}
+	>
+		|
+	</button>
 </div>

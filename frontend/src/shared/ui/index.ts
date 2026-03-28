@@ -1,8 +1,8 @@
-export { default as Button } from "./button/button.svelte";
-export { default as Checkbox } from "./checkbox/checkbox.svelte";
-export { default as Input } from "./input/input.svelte";
-export { default as Select } from "./select/select.svelte";
-export { default as SelectMultiple } from "./selectMultiple/selectMultiple.svelte";
-export { default as Separator } from "./separator/separator.svelte";
-export { default as Spinner } from "./spinner/spinner.svelte";
-export { default as Textarea } from "./textarea/textarea.svelte";
+export { default as Button } from './button/button.svelte';
+export { default as Checkbox } from './checkbox/checkbox.svelte';
+export { default as Input } from './input/input.svelte';
+export { default as Select } from './select/select.svelte';
+export { default as SelectMultiple } from './selectMultiple/selectMultiple.svelte';
+export { default as Separator } from './separator/separator.svelte';
+export { default as Spinner } from './spinner/spinner.svelte';
+export { default as Textarea } from './textarea/textarea.svelte';

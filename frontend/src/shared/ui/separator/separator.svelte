@@ -1,5 +1,5 @@
 <script lang="ts">
-  let header = $state("");
+	let header = $state('');
 </script>
 
 <div class="">{header}</div>

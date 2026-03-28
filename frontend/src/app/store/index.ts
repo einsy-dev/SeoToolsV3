@@ -1,15 +1,10 @@
-import { writable } from "svelte/store";
-import { defaultPlayer, defaultSite } from "./default";
+import { writable } from 'svelte/store';
 
 class Store {
-  header;
-  site;
-  player;
-  constructor() {
-    this.header = writable<HeaderI[]>([]);
-    this.site = writable<SiteI>(defaultSite);
-    this.player = writable<PlayerI>(defaultPlayer);
-  }
+	// header;
+	constructor() {
+		// this.header = writable<HeaderI[]>([]);
+	}
 }
 
 export const store = new Store();

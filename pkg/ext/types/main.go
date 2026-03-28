@@ -32,3 +32,5 @@ const (
 	EventGetTab     = "getTab"
 	EventGetTabList = "getTabList"
 )
+
+type ScoketEvent struct{}
