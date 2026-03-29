@@ -14,6 +14,7 @@ const config = {
 		alias: {
 			$app: 'src/app',
 			$shared: 'src/shared',
+			$actions: 'src/shared/actions',
 			$widgets: 'src/widgets',
 			$go: 'src/lib/github.com/einsy-dev/SEOTools/internal',
 			$runtime: 'src/lib/wailsjs/runtime/runtime.js',

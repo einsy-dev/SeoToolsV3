@@ -8,19 +8,19 @@
 	} = $props<{ data?: string[][] }>();
 </script>
 
-<table class="">
+<table class="text-white">
 	<thead>
 		<tr>
 			{#each data[0] as el}
-				<th class="border border-red-500 px-1 overflow-hidden text-nowrap">{el}</th>
+				<th class="border px-1 text-nowrap">{el}</th>
 			{/each}
 		</tr>
 	</thead>
 	<tbody>
 		{#each data.slice(1, data.length) as row}
-			<tr class="overflow-hidden">
+			<tr class="">
 				{#each row as el}
-					<td class="border border-red-500 px-1 text-nowrap">{el}</td>
+					<td class="border px-1 text-nowrap">{el}</td>
 				{/each}
 			</tr>
 		{/each}

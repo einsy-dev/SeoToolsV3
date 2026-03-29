@@ -6,3 +6,5 @@ export { default as SelectMultiple } from './selectMultiple/selectMultiple.svelt
 export { default as Separator } from './separator/separator.svelte';
 export { default as Spinner } from './spinner/spinner.svelte';
 export { default as Textarea } from './textarea/textarea.svelte';
+export { default as Copy } from './copy/copy.svelte';
+export { default as Clear } from './clear/clear.svelte';

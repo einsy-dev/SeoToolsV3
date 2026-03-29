@@ -1,17 +1,32 @@
 <script lang="ts">
 	import { CSV } from '$go/services';
+	import { Clear, Copy, Select } from '$shared/ui';
 	import { readFile } from '$shared/utils/readFile';
 	import { AddFile, Table } from '$widgets/parseCsv';
 
 	let files = $state([]);
 	let parsed: string[][] = $state([]);
+	let value = $state([]);
+	let filtered = $derived(filterCSV(parsed, value));
 
-	// let parsed: string[][] = $derived(
-	//   readFile(files[0])!.then(async (res) => {
-	//     return await CSV.Parse(res);
-	//   })
-	//   return [] as string[][];
-	// );
+	function filterCSV(csv: string[][], columns: string[]): string[][] {
+		if (!columns.length) return csv;
+		let res: string[][] = [];
+		for (let i = 0; i < csv.length; i++) {
+			for (let j = 0; j < csv[0].length; j++) {
+				if (columns.includes(csv[0][j])) {
+					if (!Array.isArray(res[i])) res[i] = [];
+					res[i].push(csv[i][j]);
+				}
+			}
+		}
+
+		return res;
+	}
+
+	function copyFormatCSV(csv: string[][]) {
+		return csv.map((el) => el.join('\t')).join('\r\n');
+	}
 
 	$effect(() => {
 		if (!files.length) return;
@@ -25,20 +40,23 @@
 	});
 </script>
 
-<div class="h-full flex flex-col">
-	<AddFile bind:files />
+<div class="flex flex-col h-screen overflow-hidden">
+	<div class="flex justify-between bg-black">
+		<Select bind:value options={parsed[0]} class="p-1" />
+		<Clear
+			onclick={() => {
+				files = [];
+				value = [];
+				parsed = [];
+			}}
+		/>
+		<Copy value={copyFormatCSV(filtered)} />
+	</div>
 
-	<!-- <div class="flex gap-4"> -->
-	<!-- <div class=" bg-black overflow-scroll"> -->
-	<Table data={parsed} />
-	<!-- </div> -->
-	<!-- <Select /> -->
-	<!-- </div> -->
-	<!--<div class="mt-auto w-full flex justify-center p-2 gap-2">
-    <div class="border rounded flex items-center justify-center">
-      <button class="cursor-pointer p-2">
-        <ClipboardCopy class="w-8 h-8" />
-      </button>
-    </div>
-  </div> -->
+	<div class="relative flex-1 min-h-0 p-4 flex flex-col">
+		<AddFile bind:files />
+		<div class="flex-1 overflow-auto">
+			<Table data={filtered} />
+		</div>
+	</div>
 </div>

@@ -46,7 +46,7 @@
 	}}
 />
 
-<label class="h-full p-2" hidden={!active}>
+<label class="h-full p-2 absolute inset-0" hidden={!active}>
 	<div class="h-full border rounded bg-[rgba(60,60,60,1)]">
 		<input type="file" multiple hidden onchange={handleInput} />
 		<div
