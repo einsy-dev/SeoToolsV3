@@ -20,7 +20,9 @@
 
 	let active = $state(false);
 	let search = $state('');
-	let filtered = $derived(options.filter((el) => !value.includes(el) && el.includes(search)));
+	let filtered = $derived(
+		options.filter((el) => !value.includes(el) && el.toLowerCase().includes(search.toLowerCase()))
+	);
 
 	// svelte-ignore non_reactive_update
 	let input: HTMLInputElement;

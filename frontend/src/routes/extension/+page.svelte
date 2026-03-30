@@ -4,6 +4,7 @@
 </script>
 
 <div class="h-full flex flex-col">
-	<SiteForm />
+	<div class=""></div>
+
 	<Controls />
 </div>

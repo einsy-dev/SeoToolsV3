@@ -62,7 +62,7 @@ func (e *Player) State() State {
 		return State{Links: []string{}}
 	}
 
-	return State{Links: e.Links, Player: e.Current, Current: e.Links[e.Current], CurrentDomain: utils.GetDomain(e.Links[e.Current])}
+	return State{Links: e.Links, Player: e.Current, Current: e.Links[e.Current], CurrentDomain: utils.FormatDomain(e.Links[e.Current])}
 }
 
 type State struct {

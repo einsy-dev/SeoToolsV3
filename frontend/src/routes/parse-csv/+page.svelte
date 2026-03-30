@@ -7,7 +7,21 @@
 	let files = $state([]);
 	let parsed: string[][] = $state([]);
 	let value = $state([]);
-	let filtered = $derived(filterCSV(parsed, value));
+
+	let defValue = [
+		'Domain',
+		'Domain Rating',
+		'Organic / Traffic',
+		'Organic / Top Countries',
+		'RefDomains',
+		'Outgoing domains / All time',
+		'Authority Score',
+		'TrustFlow',
+		'CitationFlow',
+		'TopicalTrustFlow_Topic_0'
+	];
+
+	let filtered = $derived(filterCSV(parsed, value.length ? value : defValue));
 
 	function filterCSV(csv: string[][], columns: string[]): string[][] {
 		if (!columns.length) return csv;

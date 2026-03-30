@@ -31,9 +31,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	id = cuid.New()
 	app.Clients[id] = conn
 
-	if ms, err := json.Marshal(t.ActionMessage{Action: t.ActionConnect, Data: map[string]any{"id": id}}); err == nil {
+	if ms, err := json.Marshal(t.SocketAction{Connect: &t.ConnectAction{ID: id}}); err == nil {
 		err = conn.WriteMessage(websocket.TextMessage, ms)
-		fmt.Println("err or", err)
+	}
+
+	if ms, err := json.Marshal(t.SocketAction{Tab: &t.TabActions{Create: &t.CreateTabAction{URL: "https://google.com", Active: true}}}); err == nil {
+		err = conn.WriteMessage(websocket.TextMessage, ms)
 	}
 
 	for {
@@ -42,16 +45,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 			return
 		}
-		var ms = t.EventMessage{}
+		var ms = t.SocketEvent{}
 		err = json.Unmarshal([]byte(p), &ms)
 		if err != nil {
 			log.Println(err)
 			return
 		}
 
-		switch ms.Event {
-		default:
-			app.Ch <- ms
-		}
+		fmt.Println("ID", ms.Id, ms.Ping, ms.Status)
+		// app.Ch <- ms
 	}
 }
