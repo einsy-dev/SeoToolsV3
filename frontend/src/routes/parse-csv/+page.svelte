@@ -56,7 +56,6 @@
 
 <div class="flex flex-col h-screen overflow-hidden">
 	<div class="flex justify-between bg-black">
-		<Select bind:value options={parsed[0]} class="p-1" />
 		<Clear
 			onclick={() => {
 				files = [];
@@ -64,6 +63,7 @@
 				parsed = [];
 			}}
 		/>
+		<Select bind:value options={parsed[0]} class="p-1" />
 		<Copy value={copyFormatCSV(filtered)} />
 	</div>
 

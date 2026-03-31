@@ -14,6 +14,7 @@ func main() {
 	app := application.New(application.Options{
 		Name: "Seo Tools",
 		Services: []application.Service{
+			application.NewService(&services.Domain{}),
 			application.NewService(&services.CSV{}),
 			application.NewService(&services.Clipboard{}),
 			application.NewService(&services.Player{}),
@@ -29,8 +30,10 @@ func main() {
 		Y:           500,
 		Width:       350,
 		MinWidth:    350,
+		MaxWidth:    700,
 		Height:      500,
 		MinHeight:   500,
+		MaxHeight:   800,
 		AlwaysOnTop: true,
 	})
 

@@ -4,10 +4,12 @@
 
 import * as CSV from "./csv.js";
 import * as Clipboard from "./clipboard.js";
+import * as Domain from "./domain.js";
 import * as Player from "./player.js";
 export {
     CSV,
     Clipboard,
+    Domain,
     Player
 };
 
