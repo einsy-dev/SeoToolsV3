@@ -1,8 +1,8 @@
 package ext
 
 import (
-	"github.com/einsy-dev/SEOTools/pkg/ext/socket"
-	t "github.com/einsy-dev/SEOTools/pkg/ext/types"
+	"github.com/einsy-dev/NetSail/pkg/ext/socket"
+	t "github.com/einsy-dev/NetSail/pkg/ext/types"
 )
 
 type Action struct{}

@@ -1,7 +1,7 @@
 package app
 
 import (
-	t "github.com/einsy-dev/SEOTools/pkg/ext/types"
+	t "github.com/einsy-dev/NetSail/pkg/ext/types"
 )
 
 var Clients = make(t.Clients)

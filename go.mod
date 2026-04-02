@@ -1,4 +1,4 @@
-module github.com/einsy-dev/SEOTools
+module github.com/einsy-dev/NetSail
 
 go 1.25
 

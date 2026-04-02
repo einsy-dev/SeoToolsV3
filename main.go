@@ -3,7 +3,7 @@ package main
 import (
 	"embed"
 
-	"github.com/einsy-dev/SEOTools/internal/services"
+	"github.com/einsy-dev/NetSail/internal/services"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 
@@ -12,7 +12,7 @@ var assets embed.FS
 
 func main() {
 	app := application.New(application.Options{
-		Name: "Seo Tools",
+		Name: "NetSail",
 		Services: []application.Service{
 			application.NewService(&services.Domain{}),
 			application.NewService(&services.CSV{}),
@@ -25,46 +25,18 @@ func main() {
 	})
 
 	app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Title:       "SEO Tools",
-		X:           1000,
-		Y:           500,
-		Width:       350,
-		MinWidth:    350,
-		MaxWidth:    700,
-		Height:      500,
-		MinHeight:   500,
-		MaxHeight:   800,
-		AlwaysOnTop: true,
-	})
+		Title:     "NetSail",
+		X:         1000,
+		Y:         500,
+		Width:     350,
+		MinWidth:  350,
+		MaxWidth:  700,
+		Height:    500,
+		MinHeight: 500,
+		MaxHeight: 800})
 
 	err := app.Run()
 	if err != nil {
 		panic(err)
 	}
-
-	// err := wails.Run(&options.App{
-	// 	Title:       "SEO Tools",
-	// 	Width:       350,
-	// 	MinWidth:    350,
-	// 	Height:      500,
-	// 	MinHeight:   500,
-	// 	AlwaysOnTop: true,
-	// 	AssetServer: &assetserver.Options{
-	// 		Assets: assets,
-	// 	},
-	// 	BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 1},
-	// 	OnStartup: func(ctx context.Context) {
-	// 		app.Ctx = ctx
-	// 		clipboard.Startup()
-	// 		extension.Startup()
-	// 		sql.Sql.Startup()
-	// 	},
-	// 	Bind: []interface{}{
-	// 		extension.Bind,
-	// 	},
-	// })
-
-	// if err != nil {
-	// 	println("Error:", err.Error())
-	// }
 }

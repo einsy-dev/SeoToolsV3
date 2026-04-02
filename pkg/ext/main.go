@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/einsy-dev/SEOTools/pkg/ext/app"
-	"github.com/einsy-dev/SEOTools/pkg/ext/socket"
+	"github.com/einsy-dev/NetSail/pkg/ext/app"
+	"github.com/einsy-dev/NetSail/pkg/ext/socket"
 )
 
 func Startup() (Action, <-chan EventMessage) {

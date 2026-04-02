@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/einsy-dev/SEOTools/pkg/ext/app"
-	t "github.com/einsy-dev/SEOTools/pkg/ext/types"
+	"github.com/einsy-dev/NetSail/pkg/ext/app"
+	t "github.com/einsy-dev/NetSail/pkg/ext/types"
 	"github.com/gorilla/websocket"
 	"github.com/lucsky/cuid"
 )

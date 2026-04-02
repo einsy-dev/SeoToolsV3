@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/einsy-dev/SEOTools/internal/utils"
-	"github.com/einsy-dev/SEOTools/pkg/ext"
+	"github.com/einsy-dev/NetSail/internal/utils"
+	"github.com/einsy-dev/NetSail/pkg/ext"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 

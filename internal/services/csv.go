@@ -1,7 +1,7 @@
 package services
 
 import (
-	csv "github.com/einsy-dev/SEOTools/pkg/csv"
+	csv "github.com/einsy-dev/NetSail/pkg/csv"
 )
 
 type CSV struct{}

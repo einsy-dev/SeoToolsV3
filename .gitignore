@@ -1,6 +1,7 @@
 node_modules
 .svelte-kit
-
+frontend/src/lib/
+build/*/
 # Output
 .output
 .vercel

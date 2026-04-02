@@ -1,6 +1,6 @@
 package csv
 
-import "github.com/einsy-dev/SEOTools/internal/utils"
+import "github.com/einsy-dev/NetSail/internal/utils"
 
 type CSV struct {
 	Data [][]string

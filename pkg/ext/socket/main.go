@@ -3,8 +3,8 @@ package socket
 import (
 	"encoding/json"
 
-	"github.com/einsy-dev/SEOTools/pkg/ext/app"
-	t "github.com/einsy-dev/SEOTools/pkg/ext/types"
+	"github.com/einsy-dev/NetSail/pkg/ext/app"
+	t "github.com/einsy-dev/NetSail/pkg/ext/types"
 	"github.com/gorilla/websocket"
 )
 

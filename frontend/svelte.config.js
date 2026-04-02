@@ -16,7 +16,7 @@ const config = {
 			$shared: 'src/shared',
 			$actions: 'src/shared/actions',
 			$widgets: 'src/widgets',
-			$go: 'src/lib/github.com/einsy-dev/SEOTools/internal',
+			$go: 'src/lib/github.com/einsy-dev/NetSail/internal',
 			$runtime: 'src/lib/wailsjs/runtime/runtime.js',
 			$lib: 'src/lib'
 		}
