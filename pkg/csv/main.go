@@ -1,6 +1,10 @@
 package csv
 
-import "github.com/einsy-dev/NetSail/internal/utils"
+import (
+	"fmt"
+
+	"github.com/einsy-dev/NetSail/internal/utils"
+)
 
 type CSV struct {
 	Data [][]string
@@ -20,10 +24,18 @@ func (c *CSV) set(row string, col string, val string) {
 	c.Data[c.rows[row]][c.cols[col]] = val
 }
 
-func CSVFile(data string) CSV {
+func CSVFile(data string) (*CSV, error) {
 	var csv = CSV{}
-	csv.Data = read(data)
+	var err error
+	csv.Data, err = read(data)
+
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+
 	csv.cols, csv.key = getCols(csv.Data)
 	csv.rows = getRows(csv.Data, csv.key, func(k string) string { return utils.FormatDomain(k) })
-	return csv
+
+	return &csv, nil
 }

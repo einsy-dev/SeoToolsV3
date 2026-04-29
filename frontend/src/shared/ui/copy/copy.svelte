@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Clipboard } from '$go/services';
+	import { Clipboard } from '$go/services/clipboard';
 	import { ClipboardCopy } from '@lucide/svelte';
 
 	let { value = '' } = $props();

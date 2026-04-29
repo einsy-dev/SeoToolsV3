@@ -8,9 +8,9 @@ export const windowBlur: Action<
 	}
 > = (node) => {
 	const handleBlur = (event: FocusEvent) => {
-		if (!event.preventDefault) {
-			node.dispatchEvent(new CustomEvent('onwindow_blur'));
-		}
+		if (!node && event.defaultPrevented) return;
+
+		node.dispatchEvent(new CustomEvent('window_blur'));
 	};
 
 	window.addEventListener('blur', handleBlur, true);

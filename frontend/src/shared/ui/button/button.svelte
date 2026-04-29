@@ -14,7 +14,7 @@
 
 <button
 	bind:this={button}
-	class={`cursor-pointer card py-2! hover:scale-105 ${props.class}`}
+	class={`cursor-pointer card py-2 hover:scale-105 ${props.class}`}
 	{onclick}
 >
 	{@render children?.()}

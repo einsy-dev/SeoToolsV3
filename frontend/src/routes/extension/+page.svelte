@@ -1,13 +1,9 @@
 <script lang="ts">
-	import * as Domain from '$go/services/domain';
-	import { Spinner } from '$shared/ui';
-	import Controls from '$widgets/extension/controls/controls.svelte';
-	import SiteForm from '$widgets/extension/siteForm/siteForm.svelte';
-	import Card from './card/card.svelte';
+	import Card from '$widgets/extension/card/card.svelte';
 
 	let data: { [key: string]: any } = $state({});
 
-	Domain.Fetch('google2.com').then((res) => (data = JSON.parse(res)));
+	// Domain.Fetch('google2.com').then((res) => (data = JSON.parse(res)));
 
 	function ahrefsFormat(data: { [key: string]: any }) {
 		return {
@@ -35,17 +31,22 @@
 			Topic: data?.topic || 'n/a'
 		};
 	}
+
+	function mozFormat(data: { [key: string]: any }) {
+		return {
+			TF: data?.tf || 'n/a',
+			CF: data?.cf || 'n/a',
+			Topic: data?.topic || 'n/a'
+		};
+	}
 </script>
 
 <div class="flex grow flex-col text-white px-2 py-1 gap-1">
-	<div class="rounded bg-black flex px-4 py-1 items-center justify-between">
-		<div class="">https://google.com</div>
-		<div class=""><Spinner /></div>
-	</div>
-
 	<Card label="Ahrefs" data={ahrefsFormat(data.ahrefs)} />
 	<Card label="Semrush" data={semrushFormat(data.semrush)} />
 	<Card label="Majestic" data={majesticFormat(data.majestic)} />
-	<textarea class="bg-black rounded outline-none resize-none px-2 py-1" bind:value={data.comment}></textarea>
+	<Card label="Moz" data={mozFormat(data.moz)} />
+
+	<textarea class="bg-black rounded outline-none resize-none px-2 py-1" bind:value={data.comment}
+	></textarea>
 </div>
-<Controls />

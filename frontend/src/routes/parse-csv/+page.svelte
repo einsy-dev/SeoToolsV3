@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { CSV } from '$go/services';
-	import { Clear, Copy, Select } from '$shared/ui';
+	import { CsvParser } from '$go/services/csvParser';
+	import { Clear, Copy, Input } from '$shared/ui';
 	import { readFile } from '$shared/utils/readFile';
 	import { AddFile, Table } from '$widgets/parseCsv';
+	import { sidebarState } from '$widgets/sidebar';
+	import { Menu } from '@lucide/svelte';
 
 	let files = $state([]);
 	let parsed: string[][] = $state([]);
@@ -13,7 +15,7 @@
 		'Domain Rating',
 		'Organic / Traffic',
 		'Organic / Top Countries',
-		'RefDomains',
+		'Ref. domains / All',
 		'Outgoing domains / All time',
 		'Authority Score',
 		'TrustFlow',
@@ -24,7 +26,7 @@
 	let filtered = $derived(filterCSV(parsed, value.length ? value : defValue));
 
 	function filterCSV(csv: string[][], columns: string[]): string[][] {
-		if (!columns.length) return csv;
+		if (!columns.length || !csv.length) return csv;
 		let res: string[][] = [];
 		for (let i = 0; i < csv.length; i++) {
 			for (let j = 0; j < csv[0].length; j++) {
@@ -35,7 +37,20 @@
 			}
 		}
 
-		return res;
+		const currentHeader = res[0];
+
+		// 2. Create a map of the target indices
+		// This tells us: "Column 0 should actually be at index X"
+		const sortedIndices = currentHeader
+			.map((colName, index) => index)
+			.sort((a, b) => {
+				return defValue.indexOf(currentHeader[a]) - defValue.indexOf(currentHeader[b]);
+			});
+
+		// 3. Map every row to the new index order
+		const sortedRes = res.map((row) => sortedIndices.map((i) => row[i]));
+
+		return sortedRes;
 	}
 
 	function copyFormatCSV(csv: string[][]) {
@@ -49,13 +64,19 @@
 				parsed = [];
 				return;
 			}
-			parsed = await CSV.Parse(res as string[]);
+			parsed = await CsvParser.Parse(res as string[]);
 		});
 	});
 </script>
 
 <div class="flex flex-col h-screen overflow-hidden">
-	<div class="flex justify-between bg-black">
+	<div class="flex justify-between bg-black text-white">
+		<Menu
+			class="h-full"
+			onclick={() => {
+				sidebarState.set(true);
+			}}
+		/>
 		<Clear
 			onclick={() => {
 				files = [];
@@ -63,7 +84,13 @@
 				parsed = [];
 			}}
 		/>
-		<Select bind:value options={parsed[0]} class="p-1" />
+		<Input
+			type="select"
+			bind:value
+			options={parsed[0]?.map((el) => ({ title: el, value: el }))}
+			multiple
+			class="p-1 bg-amber-700 w-full"
+		/>
 		<Copy value={copyFormatCSV(filtered)} />
 	</div>
 

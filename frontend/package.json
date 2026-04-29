@@ -15,7 +15,10 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^1.7.0",
-		"@wailsio/runtime": "latest"
+		"@wailsio/runtime": "latest",
+		"animejs": "^4.3.6",
+		"konva": "^10.2.3",
+		"svelte-konva": "^1.0.1"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.3",

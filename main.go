@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 
 	"github.com/einsy-dev/NetSail/internal/services"
 	"github.com/wailsapp/wails/v3/pkg/application"
@@ -11,13 +12,20 @@ import (
 var assets embed.FS
 
 func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("Recovered from panic: %v\n", r)
+		}
+	}()
+
 	app := application.New(application.Options{
 		Name: "NetSail",
 		Services: []application.Service{
-			application.NewService(&services.Domain{}),
-			application.NewService(&services.CSV{}),
-			application.NewService(&services.Clipboard{}),
+			application.NewService(&services.Clip{}),
+			application.NewService(&services.Knot{}),
 			application.NewService(&services.Player{}),
+			application.NewService(&services.Api{}),
+			application.NewService(&services.CsvParser{}),
 		},
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),

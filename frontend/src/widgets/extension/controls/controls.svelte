@@ -1,26 +1,55 @@
 <script lang="ts">
-	import { Button } from '$shared/ui';
-	import { RotateCw, SkipBack, SkipForward, StepBack, StepForward } from '@lucide/svelte';
+	import { Player } from '$go/services/extension';
+	import Button from './button/Button.svelte';
+	import Domain from './domain/domain.svelte';
+	import Reload from './reload/reload.svelte';
+	import Upload from './upload/upload.svelte';
+	import { ClipboardList, SkipBack, SkipForward, StepBack, StepForward } from '@lucide/svelte';
+
+	let data = $state({ domain: 'google.com' });
+	let uploadActive = $state(false);
 </script>
 
+{#if uploadActive}
+	<Upload onsubmit={() => (uploadActive = false)} />
+{/if}
+
 <div
-	class="sticky bottom-0 mt-auto w-full flex flex-col gap-4 items-center bg-black py-2 px-2 text-white"
+	class="sticky bottom-0 mt-auto w-full flex flex-col items-center bg-black text-white py-1 z-50"
 >
-	<div class="flex gap-4">
-		<Button class="border px-4 py-1 rounded-lg hover:scale-105 hidden sm:block" onclick={() => {}}
-			><SkipBack /></Button
-		>
-		<Button class="border px-4 py-1 rounded-lg hover:scale-105" onclick={() => {}}
-			><StepBack /></Button
-		>
-		<Button class="border px-4 py-1 rounded-lg hover:scale-105" onclick={() => {}}
-			><RotateCw /></Button
-		>
-		<Button class="border px-4 py-1 rounded-lg hover:scale-105" onclick={() => {}}
-			><StepForward /></Button
-		>
-		<Button class="border px-4 py-1 rounded-lg hover:scale-105 hidden sm:block" onclick={() => {}}
-			><SkipForward /></Button
-		>
+	<Domain domain={data.domain} />
+
+	<div class="flex items-center justify-between w-full">
+		<div class="w-1/7 flex items-center justify-center">
+			<Button
+				onclick={() => {
+					uploadActive = !uploadActive;
+				}}><ClipboardList /></Button
+			>
+		</div>
+		<div class="flex gap-2">
+			<Button
+				onclick={() => {
+					Player.First();
+				}}><SkipBack /></Button
+			>
+			<Button
+				onclick={() => {
+					Player.Prev();
+				}}><StepBack /></Button
+			>
+			<Reload />
+			<Button
+				onclick={() => {
+					Player.Next();
+				}}><StepForward /></Button
+			>
+			<Button
+				onclick={() => {
+					Player.Last();
+				}}><SkipForward /></Button
+			>
+		</div>
+		<div class="w-1/7"></div>
 	</div>
 </div>

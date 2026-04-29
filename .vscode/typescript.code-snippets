@@ -1,0 +1,12 @@
+{
+  "edf": {
+    "prefix": [
+      "edf"
+    ],
+    "body": [
+      "export {default as $1} from '.$2'"
+    ],
+    "description": "",
+    "scope": "typescript, typescriptreact"
+  }
+}

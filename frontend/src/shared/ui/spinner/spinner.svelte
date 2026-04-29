@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { CircleCheck, LoaderCircle } from '@lucide/svelte';
+	import type { Snippet } from 'svelte';
 
-	let { active = true } = $props<{ active?: boolean }>();
+	let {
+		loading = true,
+		children,
+		class: className
+	}: { loading?: boolean; children?: Snippet; class?: string } = $props();
 </script>
 
-{#if active}
-	<LoaderCircle class="animate-spin h-5" />
+{#if loading}
+	<LoaderCircle class="animate-spin {className}" />
 {:else}
-	<CircleCheck class="h-5" />
+	{@render children?.()}
 {/if}

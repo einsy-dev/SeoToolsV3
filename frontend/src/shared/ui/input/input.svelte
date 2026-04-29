@@ -1,24 +1,46 @@
-<script lang="ts">
-	import { Files } from '@lucide/svelte';
+<script lang="ts" generics="T extends keyof InputI">
+	import Checkbox from './checkbox/checkbox.svelte';
+	import Email from './email/email.svelte';
+	import File from './file/file.svelte';
+	import Html from './html/html.svelte';
+	import type { InputI, InputIDef } from './input';
+	import { default as DefInput } from './input/input.svelte';
+	import Label from './label/label.svelte';
+	import Password from './password/password.svelte';
+	import Select from './select/select.svelte';
+	import Textarea from './textarea/textarea.svelte';
+	import Username from './username/username.svelte';
+	import type { Component } from 'svelte';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
-	let {
-		value = $bindable(''),
-		edit = $bindable(false),
-		placeholder = ''
-	}: HTMLInputAttributes & { edit?: boolean; 'bind:edit'?: boolean } = $props();
+	let { value = $bindable(''), ...props }: InputI[T] | InputIDef = $props();
+
+	let InputComponent = $derived(switchInput(props.type));
+
+	function switchInput(type: HTMLInputAttributes['type']): Component<any> {
+		switch (type) {
+			case 'password':
+				return Password;
+			case 'email':
+				return Email;
+			case 'username':
+				return Username;
+			case 'html':
+				return Html;
+			case 'file':
+				return File;
+			case 'select':
+				return Select;
+			case 'checkbox':
+				return Checkbox;
+			case 'textarea':
+				return Textarea;
+			default:
+				return DefInput;
+		}
+	}
 </script>
 
-<div class="relative flex card py-2!">
-	{#if edit}
-		<input class="flex w-full outline-0" type="text" {placeholder} bind:value />
-	{:else}
-		<button class="flex w-full outline-0 cursor-pointer" onclick={() => (edit = true)}
-			>{value || placeholder}</button
-		>
-		<button
-			class="cursor-pointer absolute right-2 ps-8 bg-linear-to-r from-transparent via-black/80 to-black"
-			onclick={() => null}><Files onclick={() => {}} /></button
-		>
-	{/if}
-</div>
+<Label title={props.label}>
+	<InputComponent bind:value {...props} />
+</Label>

@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { Header } from '$widgets';
+	import { Controls } from '$widgets/extension';
 	import { Events } from '@wailsio/runtime';
 	import { onMount, setContext } from 'svelte';
 
 	let { children } = $props();
 	let tabs = [
 		{ title: 'Metrics', path: '/extension' },
-		{ title: 'Player', path: '/extension/player' }
+		{ title: 'Accounts', path: '/extension/accounts' },
+		{ title: 'Links', path: '/extension/links' }
 	];
 
 	onMount(() => {
@@ -18,4 +20,7 @@
 </script>
 
 <Header {tabs} />
-{@render children?.()}
+<div class="relative">
+	{@render children?.()}
+	<Controls />
+</div>

@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { clickOutside } from '$shared/actions/clickOutside';
+	import { sidebarState } from '.';
 	import Button from './button/button.svelte';
 	import { Blocks, Grid2x2Plus, Settings } from '@lucide/svelte';
 
 	let active = $state(false);
+
+	sidebarState.subscribe((val) => {
+		active = val;
+	});
 
 	const router = {
 		top: [
@@ -31,7 +36,7 @@
 	style:transform={active ? `translateX(${100}%)` : ''}
 	use:clickOutside
 	onclick_outside={() => {
-		active = false;
+		sidebarState.set(false);
 	}}
 >
 	<nav class="flex flex-col h-full justify-between">
@@ -50,10 +55,4 @@
 			{/each}
 		</div>
 	</nav>
-	<button
-		class="bg-black text-white absolute top-20 right-0 translate-x-full w-3 h-20 rounded-[0_10px_10px_0] cursor-pointer"
-		onclick={() => (active = !active)}
-	>
-		|
-	</button>
 </div>
